@@ -38,7 +38,7 @@ void LedOFF() {
   
   }
 
-void executeLedArray(Led Pattern[], int elements, int delayLength);
+void executeLedArray(Led Pattern[], int elements, int LedTTL, int PatternTTL);
 
 void loop() {
 
@@ -98,19 +98,24 @@ Led L25 = L[25];
 Led L26 = L[26];
 Led L27 = L[27];
 
-Led Pattern1[] = {L1,L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15, L16, L17, L18, L19, L20, L21, L22, L23, L24, L25, L26, L27};
 
+int elements = 27;
+Led All[] = {L1,L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15, L16, L17, L18, L19, L20, L21, L22, L23, L24, L25, L26, L27};
+Led Level1[] = {L1,L2, L3, L4, L5, L6, L7, L8, L9, L14, L24}; 
 
+// executeLedArray(PATTERN, NUMBER OF ELEMENTS, Frequency, TTL FOR PATTERN)
 
-// executeLedArray(PATTERN, NUMBER OF ELEMENTS, DEFAULT DELAY)
-
-executeLedArray(Pattern1, 27, 100);
+executeLedArray(All, 27, 10, 100);
+delay(2000);
+executeLedArray(Level1, 11, 10, 100);
+delay(2000);
 
 }
 
 
-void executeLedArray(Led Pattern[], int elements, int delayLength) {
+void executeLedArray(Led Pattern[], int elements, int LedTTL, int PatternTTL) {
 
+for (int d = 0; d <= PatternTTL; d++) {
 for (int i = 0; i <= elements; i++) {
 
       switch (Pattern[i].C) {
@@ -119,6 +124,7 @@ for (int i = 0; i <= elements; i++) {
       break;
     case 2:
       digitalWrite(P2, HIGH);
+      
       break;
     case 3:
       digitalWrite(P3, HIGH);
@@ -169,56 +175,8 @@ for (int i = 0; i <= elements; i++) {
       digitalWrite(E3, LOW);
       break;
   }  
-
-  delay(delayLength);
+  delay(1);
   LedOFF();
-
 }
-
-Serial.println("####################");
-
-/*
-  switch (Pattern[0]) {
-    case 1:
-      digitalWrite(P1, HIGH);
-      break;      
-    case 2:
-      digitalWrite(P2, HIGH);
-      break;
-    case 3:
-      digitalWrite(P3, HIGH);
-      break;
-    case 4:
-      digitalWrite(P4, HIGH);
-      break;
-    case 5:
-      digitalWrite(P5, HIGH);
-      break;
-    case 6:
-      digitalWrite(P6, HIGH);
-      break;
-    case 7:
-      digitalWrite(P7, HIGH);
-      break;
-    case 8:
-      digitalWrite(P8, HIGH);
-      break;
-    case 9:
-      digitalWrite(P9, HIGH);
-      break;
- }
-  switch (Pattern[1]) {
-    case 1:
-      digitalWrite(E1, HIGH); digitalWrite(E2, HIGH); digitalWrite(E3, LOW);
-    case 2:
-      digitalWrite(E1, HIGH); digitalWrite(E2, LOW); digitalWrite(E3, HIGH);
-    case 3:
-      digitalWrite(E1, LOW); digitalWrite(E2, HIGH); digitalWrite(E3, HIGH);
-  }
-  delay(delayLength);
-  LedOFF();
-
-*/
-
-delay(delayLength);
+}
 }
