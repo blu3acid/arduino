@@ -37,7 +37,9 @@ pinMode(E2, OUTPUT);
 pinMode(E3, OUTPUT);
 
 // int P1[] = {COLUMN, ROW};
-
+  Serial.begin(9600);
+  while (! Serial); // Wait untilSerial is ready - Leonardo
+  Serial.println("Serial consle started");
 }
 
 void LedOFF() {
@@ -56,9 +58,48 @@ void LedOFF() {
   
   }
 
+struct Led{
+  int C;
+  bool R1;
+  bool R2;
+  bool R3;
+};
+Led L[27];
 
-void executeLedArray(int LedArray[], int delayLength) {
-  switch (LedArray[0]) {
+void executeLedArray(Led Pattern[], int delayLength);
+
+void loop() {
+
+
+
+L[1] = {1, false, false, true};
+L[2] = {2, false, false, true};
+L[3] = {3, false, false, true};
+L[4] = {4, false, false, true};
+
+Led Pattern1[] = {L[1], L[2], L[3], L[4]};
+Serial.println("Pattern1 sizeof");
+Serial.println(sizeof(Pattern1));
+//int Pattern1[] = {L1, L2};
+  
+
+executeLedArray(&Pattern1, 100);
+//executeLedArray(L2, 100);
+
+}
+
+
+void executeLedArray(Led *Pattern, int delayLength) {
+
+
+int arraylength = (sizeof(Pattern)/sizeof(Led));
+Serial.println("####################");
+Serial.println(arraylength);
+Serial.println(sizeof(Pattern));
+Serial.println(sizeof(Led));
+Serial.println(sizeof(L));
+/*
+  switch (Pattern[0]) {
     case 1:
       digitalWrite(P1, HIGH);
       break;      
@@ -87,7 +128,7 @@ void executeLedArray(int LedArray[], int delayLength) {
       digitalWrite(P9, HIGH);
       break;
  }
-  switch (LedArray[1]) {
+  switch (Pattern[1]) {
     case 1:
       digitalWrite(E1, HIGH); digitalWrite(E2, HIGH); digitalWrite(E3, LOW);
     case 2:
@@ -97,54 +138,8 @@ void executeLedArray(int LedArray[], int delayLength) {
   }
   delay(delayLength);
   LedOFF();
-}
 
-void loop() {
+*/
 
-struct Led{
-  int C;
-  int R1;
-  int R2;
-  int R3;
-};
-
-  
-  int L1[] = {1, 1};
-  int L2[] = {2, 1};
-  int L3[] = {3, 1};
-  int L4[] = {4, 1};
-  int L5[] = {5, 1};
-  int L6[] = {6, 1};
-  int L7[] = {7, 1};
-  int L8[] = {8, 1};
-  int L9[] = {9, 1};
-  int L10[] = {1, 2};
-  int L11[] = {2, 2};
-  int L12[] = {3, 2};
-  int L13[] = {4, 2};
-  int L14[] = {5, 2};
-  int L15[] = {6, 2};
-  int L16[] = {7, 2};
-  int L17[] = {8, 2};
-  int L18[] = {9, 2};
-  int L19[] = {1, 3};
-  int L20[] = {2, 3};
-  int L21[] = {3, 3};
-  int L22[] = {4, 3};
-  int L23[] = {5, 3};
-  int L24[] = {6, 3};
-  int L25[] = {7, 3};
-  int L26[] = {8, 3};
-  int L27[] = {9, 3};
-
-  
-//executeLedArray(L25);
-
-//executeLedArray(L1, 100);
-//executeLedArray(L2, 100);
-
-
-  
-  //digitalWrite(P1, HIGH); digitalWrite(E1, LOW); digitalWrite(E2, HIGH); digitalWrite(E3, HIGH);
-
+delay(2000);
 }
