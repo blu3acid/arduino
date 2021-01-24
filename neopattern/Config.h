@@ -24,9 +24,6 @@ struct Led{
 
 Led L[27];
 
-
-
-
 Led L1 = L[1];
 Led L2 = L[2];
 Led L3 = L[3];
@@ -54,12 +51,5 @@ Led L24 = L[24];
 Led L25 = L[25];
 Led L26 = L[26];
 Led L27 = L[27];
-
-
-Led All[] = {L1,L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15, L16, L17, L18, L19, L20, L21, L22, L23, L24, L25, L26, L27};
-Led Level1[] = {L1,L2, L3, L4, L5, L6, L7, L8, L9,}; 
-Led DLC[] = {L1, L2, L4, L5, L10, L11, L14, L13};
-Led DRC[] = {L2, L3, L5, L6, L11, L12, L14, L15};
-
 
 #endif
