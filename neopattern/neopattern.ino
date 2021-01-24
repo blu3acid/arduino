@@ -37,6 +37,21 @@ void LedOFF() {
 	digitalWrite(E3, LOW);
 }
 
+void LedALL() {
+  digitalWrite(P1, HIGH);
+  digitalWrite(P2, HIGH);
+  digitalWrite(P3, HIGH);
+  digitalWrite(P4, HIGH);
+  digitalWrite(P5, HIGH);
+  digitalWrite(P6, HIGH);
+  digitalWrite(P7, HIGH);
+  digitalWrite(P8, HIGH);
+  digitalWrite(P9, HIGH);
+  digitalWrite(E1, LOW);
+  digitalWrite(E2, LOW);
+  digitalWrite(E3, LOW);
+}
+
 // Function prototype executeLedArrays: eLA(PATTERN, NUMBER OF ELEMENTS, TTL LED, TTL PATTERN) 
 void eLA(Led Pattern[], int elements, int LedTTL, int PatternTTL);
 
@@ -101,6 +116,9 @@ void loop() {
 
 	// Patterns
 
+  int randomColumn = random(1,10);
+  int randomRow = random(1, 4);
+
 	Led All[] = {L1,L2, L3, L4, L5, L6, L7, L8, L9, L10, L11, L12, L13, L14, L15, L16, L17, L18, L19, L20, L21, L22, L23, L24, L25, L26, L27};
 	Led Row1[] = {L1,L2, L3, L4, L5, L6, L7, L8, L9,}; 
 	Led Row2[] = {L10, L11, L12, L13, L14, L15, L16, L17, L18}; 
@@ -115,17 +133,101 @@ void loop() {
 	Led UBLC[] = {L22, L23, L25, L26, L14, L13, L17, L16};
 	Led UBRC[] = {L23, L24, L26, L27, L18, L17, L15, L14};
 
+/*
+	eLA(DFLC, 8, 2, 50);
+	eLA(DFRC, 8, 2, 50);
+	eLA(DBLC, 8, 2, 50);
+	eLA(DBRC, 8, 2, 50);
 
-	eLA(DFLC, 8, 10, 50);
-	eLA(DFRC, 8, 10, 50);
-	eLA(DBLC, 8, 10, 50);
-	eLA(DBRC, 8, 10, 50);
+	eLA(UFLC, 8, 2, 50);
+	eLA(UFRC, 8, 2, 50);
+	eLA(UBLC, 8, 2, 50);
+	eLA(UBRC, 8, 2, 50);
+*/
 
-	eLA(UFLC, 8, 10, 50);
-	eLA(UFRC, 8, 10, 50);
-	eLA(UBLC, 8, 10, 50);
-	eLA(UBRC, 8, 10, 50);
+eRA(randomColumn, randomRow);
 
+// glow();
+}
+
+void glow() {
+  int t = 10;
+  for (t; t >= 0; t--) {
+   LedALL();
+   delay(t);
+   LedOFF();
+   delay(t);
+  }
+  for (t; t <= 10; t++) {
+   LedALL();
+   delay(t);
+   LedOFF();
+   delay(t);
+  }
+}
+  
+
+void eRA (int Col, int Row) {
+  int t = 20;
+  while(t > 0) {
+  // while(true) {
+  switch (Col) {
+        case 1:
+          LedOFF();
+          digitalWrite(P1, HIGH);
+          break;
+        case 2:
+          LedOFF();
+          digitalWrite(P2, HIGH);
+          break;
+        case 3:
+          LedOFF();
+          digitalWrite(P3, HIGH);
+          break;
+        case 4:
+          LedOFF();
+          digitalWrite(P4, HIGH);
+          break;
+        case 5:
+          LedOFF();
+          digitalWrite(P5, HIGH);
+          break;
+        case 6:
+          LedOFF();
+          digitalWrite(P6, HIGH);
+          break;
+        case 7:
+          LedOFF();
+          digitalWrite(P7, HIGH);
+          break;
+        case 8:
+          LedOFF();
+          digitalWrite(P8, HIGH);
+          break;
+        case 9:
+          LedOFF();
+          digitalWrite(P9, HIGH);
+          break;
+      }
+
+      switch (Row) {
+        case 1:
+          digitalWrite(E1, LOW); digitalWrite(E2, HIGH); digitalWrite(E3, HIGH);
+          break;
+          //delay(2);
+        case 2:
+          digitalWrite(E1, HIGH); digitalWrite(E2, LOW); digitalWrite(E3, HIGH);
+          //delay(2);
+          break;
+        case 3:
+          digitalWrite(E1, HIGH); digitalWrite(E2, HIGH); digitalWrite(E3, LOW);
+          //delay(2);
+       break;
+      }
+      Serial.println(Col);
+      Serial.println(Row);
+      t = t -1;
+  }
 }
 
 void eLA(Led Pattern[], int elements, int LedTTL, int PatternTTL) {
@@ -181,7 +283,7 @@ void eLA(Led Pattern[], int elements, int LedTTL, int PatternTTL) {
 					break;
 				case LOW:
 					digitalWrite(E1, LOW); digitalWrite(E2, HIGH); digitalWrite(E3, HIGH);
-					delay(LedTTL);
+					 delay(LedTTL);
 					break;
 			}
 
@@ -191,7 +293,7 @@ void eLA(Led Pattern[], int elements, int LedTTL, int PatternTTL) {
 					break;
 				case LOW:
 					digitalWrite(E1, HIGH); digitalWrite(E2, LOW); digitalWrite(E3, HIGH);
-					delay(LedTTL);
+					 delay(LedTTL);
 					break;
 			}
 			switch (Pattern[i].R3) {
