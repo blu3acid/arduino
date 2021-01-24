@@ -14,6 +14,10 @@ pinMode(P9, OUTPUT);
 pinMode(E1, OUTPUT);
 pinMode(E2, OUTPUT);
 pinMode(E3, OUTPUT);
+
+Serial.begin(9600);
+while (! Serial); // Wait untilSerial is ready
+Serial.println("Serial consle started");
 }
 
 // Function to shutdown all Led's 
@@ -111,26 +115,25 @@ Led UFRC[] = {L20, L21, L23, L24, L11, L12, L14, L15};
 Led UBLC[] = {L22, L23, L25, L26, L14, L13, L17, L16};
 Led UBRC[] = {L23, L24, L26, L27, L18, L17, L15, L14};
 
-eLA(DFLC, 8, 2, 9100);
-delay(200);
-eLA(DFRC, 8, 2, 9100);
-delay(200);
-eLA(DBLC, 8, 2, 9100);
-delay(200);
-eLA(DBRC, 8, 2, 9100);
-delay(200);
-/*
-eLA(UFLC, 8, 1, 9100);
-eLA(UFRC, 8, 1, 9100);
-eLA(UBLC, 8, 1, 9100);
-eLA(UBRC, 8, 1, 9100);
-*/
+
+eLA(DFLC, 8, 10, 50);
+eLA(DFRC, 8, 10, 50);
+eLA(DBLC, 8, 10, 50);
+eLA(DBRC, 8, 10, 50);
+
+eLA(UFLC, 8, 10, 50);
+eLA(UFRC, 8, 10, 50);
+eLA(UBLC, 8, 10, 50);
+eLA(UBRC, 8, 10, 50);
+
 }
 
 void eLA(Led Pattern[], int elements, int LedTTL, int PatternTTL) {
   
 // While loop functions as a timer
 while(PatternTTL > 0) {
+  Serial.println("Original PatternTTL");
+  Serial.println(PatternTTL);
 for (int i = 0; i < elements; i++) {
       switch (Pattern[i].C) {
     case 1:
@@ -191,7 +194,6 @@ for (int i = 0; i < elements; i++) {
       delay(LedTTL);
       break;
   }
-
     switch (Pattern[i].R3) {
     case HIGH:
       digitalWrite(E1, HIGH); digitalWrite(E2, HIGH); digitalWrite(E3, HIGH);
@@ -202,9 +204,9 @@ for (int i = 0; i < elements; i++) {
       break;
   }  }
 // Subtract the time to live (frequency) from the TTL of the Pattern
-PatternTTL -= LedTTL;
+PatternTTL -=LedTTL;
 // Subtract one ms because the execution takes time aswell (this is a really bad workaround i know)
-PatternTTL = -1;
-
+PatternTTL--;
+Serial.println(PatternTTL);
 }
 }
